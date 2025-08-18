@@ -28,7 +28,7 @@ cd O365Whitelist
 
 **3. Apply lists:**
 ```
-python3 scripts/whitelist.py --env enterprise
+python3 scripts/whitelist.py
 pihole -g
 pihole restartdns
 ```
