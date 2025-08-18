@@ -1,27 +1,59 @@
-# O365 Whitelist
+# M365 Whitelist for Pi-hole
 
-## A Whitelist for PiHole and Microsoft Office 365
+Curated allow and deny lists to keep Microsoft 365 services working (Outlook, Teams, SharePoint, OneDrive) while blocking telemetry noise.
 
-This is a script that will add exact and regex whitelist entries for use with Microsoft 365.  It will also add some blacklist entries.  I've been testing this whitelist for the past six months working from home using and adminstering O365 with PiHole as my DNS.  I have a comprehensive set of block lists and some regex entries, so I've added some additonal entries that I've found may be required if you're in that situation.  Also, there is a lot of telemery in Microsoft 365, so blacklist entries are added as well.
+This repo is for Enterprise/Worldwide tenants.
+For GCC, see the fork here: [obiwantoby/O365Whitelist](https://github.com/obiwantoby/O365Whitlist).
 
-DNS entries were sourced from Microsoft https://docs.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
-Not every entry was added as some are not required and some could be considered malicous.
+ ## What it does
 
-Most of this project is based off the work of Anudeep, visit his page and give him money: https://github.com/anudeepND/whitelist
+✅ Keeps M365 functional
 
-This has been tested on version 5 of PiHole, it really relies on the database to make regex entries.  There is a text whitelist, but I have no idea if it'll work.  I haven't tested this with docker, so I'll do that later and add support and directions.
+✅ Blocks known telemetry endpoints
 
-## Installation
-You should have python3 installed.  If you don't, go get it.  
+✅ Easy to apply, easy to roll back
 
-**To install the O365 Whitelist**
+ ## Quick Start
 
-    git clone https://github.com/TheSmashy/O365Whitlist.git  
-    sudo python3 O365Whitlist/scripts/whitelist.py  
+**1. Back up Pi-hole first (seriously):**
 
-**Uninstall**  
+sudo cp /etc/pihole/gravity.db /etc/pihole/gravity.db.bak.$(date +%s)
 
-    sudo python3 O365Whitlist/scripts/uninstall.py  
-    
-**Note**  
-You should backup your gravity database before manipulating it with a script.  If you want to manually add these domains to your whitelists, there are two files you can use in the **Manual** folder; ExactDomains.txt - Exact domain matches and RegexDomains.txt - Regex domain, paste them into domain field under Whitelist management and check the box for "Add domain as wildcard".  If you want to use the script, backup your gravity database via ```sudo cp /etc/pihole/gravity.db /etc/pihole/gravity.bak``` and then procede with the installation.  See [here](https://github.com/pi-hole/pi-hole/issues/3860) for an issue related to scripts corrupting the gravity database.
+
+**2. Clone:**
+
+git clone https://github.com/TheSmashy/O365Whitelist.git
+cd O365Whitelist
+
+
+**3. Apply lists:**
+
+python3 scripts/whitelist.py --env enterprise
+pihole -g
+pihole restartdns
+
+
+**4. Roll back if you break Teams/Outlook:**
+
+python3 scripts/uninstall.py
+sudo cp /etc/pihole/gravity.db.bak.<timestamp> /etc/pihole/gravity.db
+pihole -g
+pihole restartdns
+
+## Notes
+
+Tested on Pi-hole v5. Works on v6 but you’ll likely add via Adlists instead of directly editing gravity.db.
+
+Critical endpoints like login.microsoftonline.com are never denied. Don’t mess with them unless you want authentication loops.
+
+Regex rules are optional — start with exact lists first.
+
+## Credits
+
+Original project: TheSmashy (this repo)
+
+GCC fork: obiwantoby/O365Whitelist
+
+## Disclaimer
+
+This is community-maintained. Use at your own risk. Back up before applying.
