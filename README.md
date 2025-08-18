@@ -16,30 +16,30 @@ For GCC, see the fork here: [obiwantoby/O365Whitelist](https://github.com/obiwan
  ## Quick Start
 
 **1. Back up Pi-hole first (seriously):**
-
+```
 sudo cp /etc/pihole/gravity.db /etc/pihole/gravity.db.bak.$(date +%s)
-
+```
 
 **2. Clone:**
-
+```
 git clone https://github.com/TheSmashy/O365Whitelist.git
 cd O365Whitelist
-
+```
 
 **3. Apply lists:**
-
+```
 python3 scripts/whitelist.py --env enterprise
 pihole -g
 pihole restartdns
-
+```
 
 **4. Roll back if you break Teams/Outlook:**
-
+```
 python3 scripts/uninstall.py
 sudo cp /etc/pihole/gravity.db.bak.<timestamp> /etc/pihole/gravity.db
 pihole -g
 pihole restartdns
-
+````
 ## Notes
 
 Tested on Pi-hole v5. Works on v6 but you’ll likely add via Adlists instead of directly editing gravity.db.
