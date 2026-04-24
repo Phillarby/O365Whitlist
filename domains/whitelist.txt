@@ -93,3 +93,7 @@ portal.office.com
 www.office.com
 suite.office.net
 mlccdn.blob.core.windows.net
+battle.net
+blizzard.com
+blzstatic.com
+telemetry-in.battle.net
