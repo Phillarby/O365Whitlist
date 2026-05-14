@@ -102,3 +102,12 @@ telemetry-in.battle.net
 *.msftauth.net
 *.msftauthimages.net
 *.live.com
+*.us-east.bob.ibm.com
+api.us-east.bob.ibm.com
+bob.ibm.com/
+iam.cloud.ibm.com
+console-ibm-prod.verify.ibm.com
+idaas.ice.ibmcloud.com
+www.ibm.com
+login.ibm.com
+myibm.ibm.com
